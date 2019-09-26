@@ -72,7 +72,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983880090754237882}
-  m_Mesh: {fileID: 4300000, guid: 47debd9033d666b41bbadf28db4af725, type: 3}
+  m_Mesh: {fileID: 8214138612808221108, guid: b0767048d42607748961ac170c69c7df, type: 3}
 --- !u!23 &983880090752310138
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -90,7 +90,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ea13819741bb3454e8cc253090eaabe1, type: 2}
+  - {fileID: 2100000, guid: 0a31a593d69511e4f98f342df240f56b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,7 +121,7 @@ Animator:
   m_GameObject: {fileID: 983880090754237882}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 47debd9033d666b41bbadf28db4af725, type: 3}
-  m_Controller: {fileID: 9100000, guid: 560963c548120dc4bb786ba36db0f3ca, type: 2}
+  m_Controller: {fileID: 9100000, guid: bc26da5663d22164d98e6ea0ea12beb5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -139,12 +139,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 983880090754237882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee614281ba1ffb4db579dc4440e8258, type: 3}
+  m_Script: {fileID: 11500000, guid: dc8ea157f849fd0429878bb181f0a364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxAmmo: 200
   maxLoader: 8
   damage: 15
   cadence: 0.25
-  particles: {fileID: 6865778392349277798, guid: c751cb73b578b5d4fa18f97a17219b04,
+  particles: {fileID: 6865778392349277798, guid: d15f67a867a1cbc4bb9223df44113c87,
     type: 3}
