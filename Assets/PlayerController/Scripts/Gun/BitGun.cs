@@ -2,29 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-public class BitGun : MonoBehaviour
+public class BitGun : Gun
 {
-
-    [SerializeField] private int maxAmmo = 200;
-    [SerializeField] private int maxLoader = 8;
-    [SerializeField] private int damage = 15;
-    [SerializeField] private float cadence = 1;
-    [HideInInspector] private int ammo;
-    [HideInInspector] private int gunAmmo;
-    [HideInInspector] private bool reloading;
     [HideInInspector] private Transform cam;
-    [HideInInspector] private Animator anim;
 
     [HideInInspector] private PlayerControls controls;
 
     [HideInInspector] private UIController uiController;
 
-    [HideInInspector] private float lastTime;
 
-    private void Start()
+    private new void Start()
     {
-        anim = GetComponent<Animator>();
+        base.Start();
+
         cam = Camera.main.transform;
 
         controls = transform.parent.parent.GetComponent<FPSController>().controls;
@@ -33,13 +23,9 @@ public class BitGun : MonoBehaviour
 
         controls.Player.Fire.performed += _ => Shoot();
         controls.Player.Reload.performed += _ => Reload();
-
-        gunAmmo = maxLoader;
-        ammo = maxAmmo - maxLoader;
-
     }
 
-    private void Shoot()
+    public override void Shoot()
     {
         if (gunAmmo <= 0)
         {
@@ -66,13 +52,15 @@ public class BitGun : MonoBehaviour
             catch { }
         }
 
+        InstantiateParticles();
+
         lastTime = Time.time;
         gunAmmo--;
 
         UpdateText();
     }
 
-    private void Reload()
+    public override void Reload()
     {
         if (gunAmmo == maxLoader)
             return;

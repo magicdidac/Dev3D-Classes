@@ -119,8 +119,11 @@ public class FPSController : MonoBehaviour
         verticalSpeed += gravity.y * Time.deltaTime;
         movement.y = verticalSpeed * Time.deltaTime;
 
-        gunAnim.SetBool("walk", movement.x != 0 || movement.z != 0);
-        gunAnim.SetBool("run", runInput);
+        if (gunAnim.isActiveAndEnabled)
+        {
+            gunAnim.SetBool("walk", movement.x != 0 || movement.z != 0);
+            gunAnim.SetBool("run", runInput);
+        }
 
         CollisionFlags collisionFlags = characterController.Move(movement);
 
@@ -141,7 +144,9 @@ public class FPSController : MonoBehaviour
         if (onGround && jumpInput)
         {
             jumpInput = false;
-            gunAnim.SetTrigger("jump");
+            if(gunAnim.isActiveAndEnabled)
+                gunAnim.SetTrigger("jump");
+
             verticalSpeed = m_JumpSpeed;
         }
 
