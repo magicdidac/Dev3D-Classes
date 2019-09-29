@@ -1,0 +1,52 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Damager : MonoBehaviour
+{
+
+    [SerializeField] protected int maxHealth = 100;
+    [HideInInspector] protected int health;
+    [HideInInspector] protected UIController uiController = null;
+
+    protected void Start()
+    {
+        health = maxHealth;
+
+        uiController = GameManager.instance.uiController;
+
+        uiController.SetHealth(health);
+    }
+
+    public virtual void GetDammage(int amount)
+    {
+        health -= amount;
+
+        uiController.SetHealth(health);
+
+        if (health <= 0)
+            Dead();
+
+    }
+
+    public void AddHealth(int ammount)
+    {
+        health += ammount;
+        if (health > maxHealth)
+            health = maxHealth;
+
+        uiController.SetHealth(health);
+    }
+
+    protected void Dead()
+    {
+        health = 0;
+        Debug.Log("DEAD: " + gameObject);
+    }
+
+    public bool HaveMaxHealth()
+    {
+        return health >= maxHealth;
+    }
+
+}
