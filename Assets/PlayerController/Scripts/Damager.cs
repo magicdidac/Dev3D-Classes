@@ -7,11 +7,14 @@ public class Damager : MonoBehaviour
 
     [SerializeField] protected int maxHealth = 100;
     [HideInInspector] protected int health;
-    [SerializeField] protected UIController uiController = null;
+    [HideInInspector] protected UIController uiController = null;
 
     protected void Start()
     {
         health = maxHealth;
+
+        uiController = GameManager.instance.uiController;
+
         uiController.SetHealth(health);
     }
 

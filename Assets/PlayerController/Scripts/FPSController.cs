@@ -37,9 +37,9 @@ public class FPSController : MonoBehaviour
 
 
     [HideInInspector] private bool haveGun;
-    [SerializeField] private GameObject gun = null;
+    [SerializeField] public Gun gun = null;
     [SerializeField] private Animator gunAnim = null;
-    [SerializeField] public UIController uiController = null;
+    [HideInInspector] public UIController uiController = null;
 
     void Awake()
     {
@@ -60,6 +60,8 @@ public class FPSController : MonoBehaviour
 
         controls.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
         controls.Player.Look.canceled += _ => lookInput = Vector2.zero;
+
+        uiController = GameManager.instance.uiController;
 
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -156,9 +158,12 @@ public class FPSController : MonoBehaviour
     {
         if(other.tag == "Gun")
         {
-            gun.SetActive(true);
+            gun.gameObject.SetActive(true);
             uiController.SetActiveGunInfo();
             Destroy(other.gameObject);
+        }else if(other.tag == "Pickable")
+        {
+            other.GetComponent<Pickable>().GetPickable(this);
         }
     }
 

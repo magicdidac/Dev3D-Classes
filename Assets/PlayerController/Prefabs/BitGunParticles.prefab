@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7145120252754751212}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: BitGunParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3355510016458531748}
   - component: {fileID: 5099235132309140035}
   - component: {fileID: 6383890619799822726}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

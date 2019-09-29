@@ -8,8 +8,6 @@ public class BitGun : Gun
 
     [HideInInspector] private PlayerControls controls;
 
-    [HideInInspector] private UIController uiController;
-
 
     private new void Start()
     {
@@ -18,8 +16,6 @@ public class BitGun : Gun
         cam = Camera.main.transform;
 
         controls = transform.parent.parent.GetComponent<FPSController>().controls;
-
-        uiController = transform.parent.parent.GetComponent<FPSController>().uiController;
 
         controls.Player.Fire.performed += _ => Shoot();
         controls.Player.Reload.performed += _ => Reload();
@@ -74,18 +70,6 @@ public class BitGun : Gun
 
     }
 
-    public void AddAmmo(int ammount)
-    {
-        if (ammo == maxAmmo)
-            return;
-
-        ammo += ammount;
-        if (ammo > maxAmmo)
-            ammo = maxAmmo;
-
-        UpdateText();
-    }
-
     private void NowReload()
     {
         ammo -= maxLoader - gunAmmo;
@@ -95,9 +79,6 @@ public class BitGun : Gun
         UpdateText();
     }
 
-    private void UpdateText()
-    {
-        uiController.SetAmoText(gunAmmo + " / " + ammo);
-    }
+    
 
 }
