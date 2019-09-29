@@ -180,6 +180,7 @@ MonoBehaviour:
   gravity: {x: 0, y: -15, z: 0}
   m_FastSpeedMultiplier: 1.5
   m_JumpSpeed: 5
+  haveGun: 0
   gun: {fileID: 269171466177362964}
   dmgShield: {fileID: 0}
   uiController: {fileID: 0}
@@ -428,7 +429,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 23
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
