@@ -159,6 +159,9 @@ public class FPSController : MonoBehaviour
         if(other.tag == "Pickable")
         {
             other.GetComponent<Pickable>().GetPickable(this);
+        } else if (other.tag == "Checkpoint")
+        {
+            other.GetComponent<Checkpoint>().EnableCheckpoint();
         }
     }
 
