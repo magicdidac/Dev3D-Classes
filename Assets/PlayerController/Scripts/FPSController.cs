@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class FPSController : MonoBehaviour
 {
-
-    /* Controls */
     [HideInInspector] public PlayerControls controls { get; private set; }
 
     [HideInInspector] private bool jumpInput;
@@ -36,12 +33,6 @@ public class FPSController : MonoBehaviour
     [SerializeField] private float m_JumpSpeed = 10.0f;
 
 
-    [HideInInspector] public bool haveGun;
-    [SerializeField] public Gun gun = null;
-    [HideInInspector] private Animator gunAnim = null;
-    [HideInInspector] public DamagerWithShield dmgShield;
-    [HideInInspector] public UIController uiController = null;
-
     private void Start()
     {
         yaw = transform.rotation.eulerAngles.y;
@@ -64,20 +55,12 @@ public class FPSController : MonoBehaviour
 
         controls.Enable();
 
-        uiController = GameManager.instance.uiController;
-        gunAnim = gun.GetComponent<Animator>();
-        dmgShield = transform.GetChild(0).GetComponent<DamagerWithShield>();
-
         Cursor.lockState = CursorLockMode.Locked;
-
 
     }
 
     private void Update()
     {
-
-        if (Cursor.lockState != CursorLockMode.Locked)
-            return;
 
         /* LOOK */
         float axisY = -lookInput.y;
@@ -124,12 +107,6 @@ public class FPSController : MonoBehaviour
         verticalSpeed += gravity.y * Time.deltaTime;
         movement.y = verticalSpeed * Time.deltaTime;
 
-        if (gunAnim.isActiveAndEnabled)
-        {
-            gunAnim.SetBool("walk", movement.x != 0 || movement.z != 0);
-            gunAnim.SetBool("run", runInput);
-        }
-
         CollisionFlags collisionFlags = characterController.Move(movement);
 
         if ((collisionFlags & CollisionFlags.Below) != 0)
@@ -149,31 +126,10 @@ public class FPSController : MonoBehaviour
         if (onGround && jumpInput)
         {
             jumpInput = false;
-            if(gunAnim.isActiveAndEnabled)
-                gunAnim.SetTrigger("jump");
 
             verticalSpeed = m_JumpSpeed;
         }
 
     }
-
-    public void UpdateUIInformation()
-    {
-        uiController.SetShield(dmgShield.shield);
-        uiController.SetHealth(dmgShield.health);
-        uiController.SetAmoText(gun.gunAmmo, gun.ammo);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Pickable")
-        {
-            other.GetComponent<Pickable>().GetPickable(this);
-        } else if (other.tag == "Checkpoint")
-        {
-            other.GetComponent<Checkpoint>().EnableCheckpoint(this);
-        }
-    }
-
 
 }
