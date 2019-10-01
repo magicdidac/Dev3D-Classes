@@ -6,23 +6,25 @@ public class Damager : MonoBehaviour
 {
 
     [SerializeField] protected int maxHealth = 100;
-    [HideInInspector] protected int health;
-    [HideInInspector] protected UIController uiController = null;
+    [HideInInspector] public int health;
+    [HideInInspector] protected GameManager gm;
 
     protected void Start()
     {
         health = maxHealth;
 
-        uiController = GameManager.instance.uiController;
+        gm = GameManager.instance;
 
-        uiController.SetHealth(health);
+
+        gm.uiController.SetHealth(health);
     }
 
     public virtual void GetDammage(int amount)
     {
+
         health -= amount;
 
-        uiController.SetHealth(health);
+        gm.uiController.SetHealth(health);
 
         if (health <= 0)
             Dead();
@@ -35,13 +37,13 @@ public class Damager : MonoBehaviour
         if (health > maxHealth)
             health = maxHealth;
 
-        uiController.SetHealth(health);
+        gm.uiController.SetHealth(health);
     }
 
     protected void Dead()
     {
-        health = 0;
         Debug.Log("DEAD: " + gameObject);
+        GameManager.instance.uiController.Dead();
     }
 
     public bool HaveMaxHealth()

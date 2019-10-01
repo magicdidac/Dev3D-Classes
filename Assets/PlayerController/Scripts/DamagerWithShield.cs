@@ -6,13 +6,13 @@ public class DamagerWithShield : Damager
 {
 
     [SerializeField] private int maxShield = 100;
-    [HideInInspector] private int shield;
+    [HideInInspector] public int shield;
 
     private new void Start()
     {
         base.Start();
         shield = 0;
-        uiController.SetShield(shield);
+        gm.uiController.SetShield(shield);
     }
 
     public void AddShield(int amount)
@@ -21,12 +21,12 @@ public class DamagerWithShield : Damager
         if (shield > maxShield)
             shield = maxShield;
 
-        uiController.SetShield(shield);
+        gm.uiController.SetShield(shield);
     }
 
     public override void GetDammage(int amount)
     {
-        if(shield > 0)
+        if (shield > 0)
         {
             int shieldPercentage = (amount * 75) / 100;
 
@@ -42,11 +42,12 @@ public class DamagerWithShield : Damager
             }
 
         }
-        else
+        else if(health > 0)
             health -= amount;
 
-        uiController.SetHealth(health);
-        uiController.SetShield(shield);
+        gm.uiController.SetHealth(health);
+        gm.uiController.SetShield(shield);
+
 
         if (health <= 0)
             Dead();

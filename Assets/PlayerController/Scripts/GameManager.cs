@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,22 +9,34 @@ public class GameManager : MonoBehaviour
     [SerializeField] public UIController uiController = null;
     [HideInInspector] public FPSController player = null;
     [HideInInspector] public Checkpoint checkpoint = null;
-    [HideInInspector] private Vector3 playerInitialPos;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(this.gameObject);
+        instance = this;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<FPSController>();
 
-        playerInitialPos = player.transform.position;
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
 
+    }
+
+    private void Start()
+    {
+        uiController.ChangeFade();
+    }
+
+    public void Revive()
+    {
+        if(checkpoint == null)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            return;
+        }
+
+
+        checkpoint.SetPlayerStats();
+        
     }
 
 }

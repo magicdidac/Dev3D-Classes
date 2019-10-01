@@ -23,7 +23,7 @@ public class FPSController : MonoBehaviour
     [SerializeField] private Transform pitchControllerTransform = null;
 
     /* MOVEMENT */
-    [HideInInspector] private CharacterController characterController;
+    [HideInInspector] public CharacterController characterController;
     [SerializeField] private float speed = 10.0f;
 
     /* GRAVITY */
@@ -75,6 +75,9 @@ public class FPSController : MonoBehaviour
 
     private void Update()
     {
+
+        if (Cursor.lockState != CursorLockMode.Locked)
+            return;
 
         /* LOOK */
         float axisY = -lookInput.y;
@@ -154,6 +157,13 @@ public class FPSController : MonoBehaviour
 
     }
 
+    public void UpdateUIInformation()
+    {
+        uiController.SetShield(dmgShield.shield);
+        uiController.SetHealth(dmgShield.health);
+        uiController.SetAmoText(gun.gunAmmo, gun.ammo);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Pickable")
@@ -161,7 +171,7 @@ public class FPSController : MonoBehaviour
             other.GetComponent<Pickable>().GetPickable(this);
         } else if (other.tag == "Checkpoint")
         {
-            other.GetComponent<Checkpoint>().EnableCheckpoint();
+            other.GetComponent<Checkpoint>().EnableCheckpoint(this);
         }
     }
 

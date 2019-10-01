@@ -9,8 +9,8 @@ public abstract class Gun : MonoBehaviour
     [SerializeField] protected int maxLoader = 8;
     [SerializeField] protected int damage = 15;
     [SerializeField] protected float cadence = 1;
-    [HideInInspector] protected int ammo;
-    [HideInInspector] protected int gunAmmo;
+    [HideInInspector] public int ammo;
+    [HideInInspector] public int gunAmmo;
     [HideInInspector] protected bool reloading;
     [HideInInspector] protected Animator anim;
     [SerializeField] protected GameObject particles = null;
@@ -54,7 +54,7 @@ public abstract class Gun : MonoBehaviour
 
     protected void UpdateText()
     {
-        uiController.SetAmoText(gunAmmo + " / " + ammo);
+        uiController.SetAmoText(gunAmmo, ammo);
     }
 
     public bool HaveMaxAmmo()
